@@ -9,7 +9,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); 
 
-
+app.get('/', (req, res) => {
+    res.render('index');
+});
 app.get('/index', (req, res) => res.render('index'));
 app.get('/produto', (req, res) => res.render('produto'));
 app.get('/contato', (req, res) => res.render('contato'));
