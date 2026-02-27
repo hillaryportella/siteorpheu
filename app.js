@@ -18,21 +18,17 @@ app.get('/contato', (req, res) => res.render('contato'));
 app.get('/fotos', (req, res) => res.render('fotos'));
 app.get('/detalhes', (req, res) => res.render('detalhes'));
 
-// Rota para exibir as mensagens salvas
 app.get('/mensagens', (req, res) => {
     const caminhoArquivo = path.join(__dirname, 'dados.json');
 
-    // a) Leia os dados do arquivo
     fs.readFile(caminhoArquivo, 'utf8', (err, data) => {
         if (err) {
-            console.error("Erro ao ler o arquivo:", err);
-            return res.status(500).send("Erro ao carregar mensagens.");
+            console.error("Erro ao ler o arquivo", err);
+            return res.status(500).send("Erro ao carregar mensagens");
         }
 
-        // Converte o texto do arquivo para um vetor JSON
         const vetorDados = JSON.parse(data || "[]");
 
-        // b) Renderiza o EJS passando o vetor como parâmetro
         res.render('mensagens', { dados: vetorDados });
     });
 });
