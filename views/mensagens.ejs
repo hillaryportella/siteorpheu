@@ -21,5 +21,28 @@
             </div>
         <% }); %>
     </div>
+
+    <h2>gerenciar mensagens</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Mensagem</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% dados.forEach(function(item, i) { %>
+                <tr>
+                    <td><%= item.nome_usuario %></td>
+                    <td><%= item.mensagem %></td>
+                    <td>
+                        <a href="/apagar?id=<%= i %>" class="btn btn-danger btn-sm" onclick="return confirm('Deseja apagar esta mensagem?')">Apagar</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/" class="btn btn-primary">Voltar</a>
 </body>
 </html>

@@ -61,4 +61,25 @@ app.post('/enviar-contato', (req, res) => {
     });
 });
 
+app.get('/apagar', (req, res) => {
+    const id = req.query.id;
+    const caminhoArquivo = path.join(__dirname, 'dados.json');
+
+    fs.readFile(caminhoArquivo, 'utf8', (err, data) => {
+        if (err) return res.status(500).send("Erro ao ler arquivo.");
+
+        let vetorDados = JSON.parse(data || "[]");
+
+        if (id !== undefined && id >= 0 && id < vetorDados.length) {
+            vetorDados.splice(id, 1);
+        }
+
+        fs.writeFile(caminhoArquivo, JSON.stringify(vetorDados, null, 2), (err) => {
+            if (err) return res.status(500).send("Erro ao salvar alteração.");
+            
+            res.redirect('/mensagens');
+        });
+    });
+});
+
 app.listen(port, () => console.log(`Servidor rodando em http://localhost:${port}`));
